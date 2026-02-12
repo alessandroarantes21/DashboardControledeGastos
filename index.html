@@ -1,16 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<title>Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Gastos</title>
 <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<h1>Dashboard</h1>
+<div class="container">
+<h1>💰 Dashboard de Gastos</h1>
+
+<div class="form">
+<input type="text" id="descricao" placeholder="Descrição">
+<input type="number" id="valor" placeholder="Valor">
+<select id="tipo">
+  <option value="gasto">Gasto</option>
+  <option value="receita">Receita</option>
+</select>
+<button onclick="adicionar()">Adicionar</button>
+</div>
+
+<ul id="lista"></ul>
+
+<div class="totais">
+<h3>Total Gastos: R$ <span id="totalGastos">0</span></h3>
+<h3>Total Receitas: R$ <span id="totalReceitas">0</span></h3>
+<h2>Saldo: R$ <span id="saldo">0</span></h2>
+</div>
+
+<button onclick="limpar()">Limpar Tudo</button>
+
+</div>
 
 <script src="script.js"></script>
 </body>
 </html>
+
+
 
