@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard de Gastos</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="container">
+<h1>💰 Controle de Gastos</h1>
+
+<div class="form">
+<input type="text" id="descricao" placeholder="Descrição">
+<input type="number" id="valor" placeholder="Valor">
+<select id="tipo">
+  <option value="gasto">Gasto</option>
+  <option value="receita">Receita</option>
+</select>
+<button onclick="adicionar()">Adicionar</button>
+</div>
+
+<ul id="lista"></ul>
+
+<div class="totais">
+<h3>Total Gastos: R$ <span id="totalGastos">0</span></h3>
+<h3>Total Receitas: R$ <span id="totalReceitas">0</span></h3>
+<h2>Saldo: R$ <span id="saldo">0</span></h2>
+</div>
+
+<button onclick="limpar()">Limpar Tudo</button>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+2. style.css
+Crie style.css:
+
+body {
+  font-family: Arial;
+  background: #f2f2f2;
+  padding: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+  text-align: center;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+input, select {
+  padding: 10px;
+  flex: 1;
+}
+
+button {
+  padding: 10px;
+  background: #2196F3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+button:hover {
+  background: #0b7dda;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 0;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.gasto {
+  background: #ffdddd;
+}
+
+.receita {
+  background: #ddffdd;
+}
+
+.totais {
+  margin-top: 20px;
+}
+3. script.js
+Crie script.js:
+
+let dados = JSON.parse(localStorage.getItem("dados")) || [];
+
+function salvar() {
+  localStorage.setItem("dados", JSON.stringify(dados));
+}
+
+function adicionar() {
+  let descricao = document.getElementById("descricao").value;
+  let valor = Number(document.getElementById("valor").value);
+  let tipo = document.getElementById("tipo").value;
+
+  if (!descricao || !valor) return;
+
+  dados.push({ descricao, valor, tipo });
+  salvar();
+  render();
+}
+
+function remover(i) {
+  dados.splice(i, 1);
+  salvar();
+  render();
+}
+
+function limpar() {
+  dados = [];
+  salvar();
+  render();
+}
+
+function render() {
+  let lista = document.getElementById("lista");
+  lista.innerHTML = "";
+
+  let totalGastos = 0;
+  let totalReceitas = 0;
+
+  dados.forEach((item, i) => {
+    let li = document.createElement("li");
+    li.className = item.tipo;
+    li.innerHTML = `
+      ${item.descricao} - R$ ${item.valor}
+      <button onclick="remover(${i})">X</button>
+    `;
+    lista.appendChild(li);
+
+    if (item.tipo === "gasto") totalGastos += item.valor;
+    else totalReceitas += item.valor;
+  });
+
+  document.getElementById("totalGastos").innerText = totalGastos.toFixed(2);
+  document.getElementById("totalReceitas").innerText = totalReceitas.toFixed(2);
+  document.getElementById("saldo").innerText = (totalReceitas - totalGastos).toFixed(2);
+}
+
+render();
