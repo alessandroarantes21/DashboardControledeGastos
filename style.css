@@ -1,67 +1,101 @@
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #2196F3, #0b7dda);
+  margin: 0;
   padding: 20px;
+  color: #333;
 }
 
 .container {
   max-width: 600px;
   margin: auto;
   background: white;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  padding: 25px;
+  border-radius: 15px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 h1 {
   text-align: center;
+  margin-bottom: 20px;
+  color: #1565C0;
 }
 
 .form {
   display: flex;
+  flex-direction: column;
   gap: 10px;
-  flex-wrap: wrap;
 }
 
 input, select {
-  padding: 10px;
-  flex: 1;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: #2196F3;
+  outline: none;
+  box-shadow: 0 0 6px rgba(33,150,243,0.4);
 }
 
 button {
-  padding: 10px;
-  background: #2196F3;
+  padding: 12px;
+  background: linear-gradient(135deg, #2196F3, #1565C0);
   color: white;
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: 0.2s;
 }
 
 button:hover {
-  background: #0b7dda;
+  transform: scale(1.02);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
 ul {
   list-style: none;
   padding: 0;
+  margin-top: 15px;
 }
 
 li {
   display: flex;
   justify-content: space-between;
   margin: 5px 0;
-  padding: 10px;
-  border-radius: 5px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 500;
 }
 
 .gasto {
-  background: #ffdddd;
+  background: #ffe5e5;
+  color: #c62828;
 }
 
 .receita {
-  background: #ddffdd;
+  background: #e8f5e9;
+  color: #2e7d32;
 }
 
 .totais {
   margin-top: 20px;
+  padding: 15px;
+  background: #f1f8ff;
+  border-radius: 10px;
 }
+
+.totais h2 {
+  color: #1565C0;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
